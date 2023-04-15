@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +14,11 @@ use App\Http\Controllers\HomeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [HomeController::class, 'index']);
+Route::prefix('auth')->name('customers.')->group(function (){
+    Route::get('/login',[CustomerController::class, 'login'])->name('login');
+    Route::post('/login',[CustomerController::class, 'handleLogin'])->name('handleLogin');
+
+    Route::get('/register',[CustomerController::class, 'register'])->name('register');
+    Route::get('/register',[CustomerController::class, 'register'])->name('register');
+});
+Route::get('/', [HomeController::class, 'index'])->name('home');
